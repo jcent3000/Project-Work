@@ -1,0 +1,107 @@
+SQL> CREATE TABLE trial(tnum in, str char(10));
+CREATE TABLE trial(tnum in, str char(10))
+                        *
+ERROR at line 1:
+ORA-00902: invalid datatype 
+
+
+SQL> CREATE TABLE trial(tnum int, str char(10));
+
+Table created.
+
+SQL> INSERT INTO trial VALUES (1,'a test');
+
+1 row created.
+
+SQL> select * from trial;
+
+      TNUM STR                                                                  
+---------- ----------                                                           
+         1 a test                                                               
+
+SQL> insert into trial values(1,'a test');
+
+1 row created.
+
+SQL> select * from trial
+  2  ;
+
+      TNUM STR                                                                  
+---------- ----------                                                           
+         1 a test                                                               
+         1 a test                                                               
+
+SQL> create table test(tnum int, str char(10), PRIMARY KEY(tnum));
+create table test(tnum int, str char(10), PRIMARY KEY(tnum))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> select * from trial
+  2  ;
+
+      TNUM STR                                                                  
+---------- ----------                                                           
+         1 a test                                                               
+         1 a test                                                               
+
+SQL> select * from test;
+
+      TNUM STR                                                                  
+---------- ----------                                                           
+         1 A test                                                               
+        10 ten                                                                  
+        11 ELEVEN                                                               
+
+SQL> insert into test values(1,'anything');
+insert into test values(1,'anything')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871171) violated 
+
+
+SQL> SELECT TABLE_NAME from USER_TABLES;
+
+TABLE_NAME                                                                      
+------------------------------                                                  
+TRIAL                                                                           
+TEST                                                                            
+STAFF                                                                           
+
+SQL> DROP TABLE trial;
+
+Table dropped.
+
+SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                      
+------------------------------                                                  
+TEST                                                                            
+STAFF                                                                           
+
+SQL> host ls
+
+SQL> start data.sql
+INSERT INTO test VALUES (10,'ten')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871171) violated 
+
+
+INSERT INTO test VALUES (11,'ELEVEN')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871171) violated 
+
+
+SQL> select * from test
+  2  ;
+
+      TNUM STR                                                                  
+---------- ----------                                                           
+         1 A test                                                               
+        10 ten                                                                  
+        11 ELEVEN                                                               
+
+SQL> spool off;

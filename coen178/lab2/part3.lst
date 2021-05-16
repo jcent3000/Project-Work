@@ -1,0 +1,22 @@
+SQL> select * from L_EMP natural join L_DEPT;
+
+DEPTI      EMPNO EMPNAME    DEPTNAME                                            
+----- ---------- ---------- ----------                                          
+d1             1 smith      Research                                            
+d2             2 jones      Devt                                                
+d1             3 wayne      Research                                            
+d3             4 moor       Testing                                             
+d1             5 king       Research                                            
+d1             6 chen       Research                                            
+d3             7 winger     Testing                                             
+
+7 rows selected.
+
+SQL> select empname from L_EMP,L_DEPT where L_EMP.deptid = L_DEPT.deptid and deptname = 'Testing';
+
+EMPNAME                                                                         
+----------                                                                      
+moor                                                                            
+winger                                                                          
+
+SQL> spool off

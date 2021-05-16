@@ -1,0 +1,190 @@
+SQL> create table customer(
+  2  custid varchar(5) primary key,
+  3  firstname varchar(10),
+  4  lastname varchar(15),
+  5  city varchar(10)
+  6  );
+create table customer(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create table deliveryservice(
+  2  serviceid varchar(10),
+  3  item varchar(15),
+  4  location varchar(15),
+  5  servicefee decimal(6,2),
+  6  primary key(serviceid)
+  7  );
+create table deliveryservice(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create table schedule(
+  2  serviceid varchar(10),
+  3  custid varchar(5),
+  4  day varchar(2) check (day in (‘m’,’t’,’w’,’r’,’f’))
+  5  );
+day varchar(2) check (day in (‘m’,’t’,’w’,’r’,’f’))
+                              *
+ERROR at line 4:
+ORA-00911: invalid character 
+
+
+SQL> alter table schedule add foreign key (custid) references customer(custid);
+alter table schedule add foreign key (custid) references customer(custid)
+                         *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table 
+
+
+SQL> alter table schedule add foreign key (serviceid) references delieveryservice(serviceid);
+alter table schedule add foreign key (serviceid) references delieveryservice(serviceid)
+                                                            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> alter table schedule add foreign key (serviceid) references deliveryservie(serviceid);
+alter table schedule add foreign key (serviceid) references deliveryservie(serviceid)
+                                                            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from deliveryservice;
+
+SERVICEID  ITEM            LOCATION        SERVICEFEE                           
+---------- --------------- --------------- ----------                           
+dsg1       grocery         SJ                      25                           
+dsb1       books           SJ                      10                           
+dsm2       movies          LA                      10                           
+dby3       babygoods       SFO                     15                           
+dsg2       grocery         SFO                     20                           
+dg5        greengoods      SFO                     30                           
+dx9        flowers         NY                      20                           
+dy6        chocolate       BOI                     10                           
+
+8 rows selected.
+
+SQL> host ls
+
+SQL> start part1_insertTuples.sql
+INSERT INTO CUSTOMER VALUES('c1','John', 'Smith','SJ')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871853) violated 
+
+
+INSERT INTO CUSTOMER VALUES('c2','Mary', 'Jones','SFO')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871853) violated 
+
+
+INSERT INTO CUSTOMER VALUES('a1','Vincent','Chen','SJ')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871853) violated 
+
+
+INSERT INTO CUSTOMER VALUES('a12','Greg','King','SJ')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871853) violated 
+
+
+INSERT INTO CUSTOMER VALUES('c7','James','Bond','LA')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871853) violated 
+
+
+INSERT INTO CUSTOMER VALUES('x10','Susan','Blogg','SFO')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871853) violated 
+
+
+INSERT INTO CUSTOMER VALUES('z5','Kanye','East','NY')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871853) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dsg1','grocery','SJ',25.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dsb1','books','SJ',10.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dsm2','movies','LA',10.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dby3','babygoods','SFO',15.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dsg2','grocery','SFO',20.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dg5','greengoods','SFO',30.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dx9','flowers','NY',20.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+INSERT INTO DELIVERYSERVICE VALUES('dy6','chocolate','BOI',10.0)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (JCENTENO.SYS_C00871861) violated 
+
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+INSERT INTO SCHEDULE VALUES('dg5','c32','t')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (JCENTENO.SYS_C00871871) violated - parent key 
+not found 
+
+
+SQL> inset into schedule values('dsg2','c1','s');
+SP2-0734: unknown command beginning "inset into..." - rest of line ignored.
+SQL> spool off

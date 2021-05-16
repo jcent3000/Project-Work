@@ -1,0 +1,143 @@
+SQL> select custid, firstname||lastname as fullname, city from customer;
+
+CUSTI FULLNAME                  CITY                                            
+----- ------------------------- ----------                                      
+c1    JohnSmith                 SJ                                              
+c2    MaryJones                 SFO                                             
+a1    VincentChen               SJ                                              
+a12   GregKing                  SJ                                              
+c7    JamesBond                 LA                                              
+x10   SusanBlogg                SFO                                             
+z5    KanyeEast                 NY                                              
+
+7 rows selected.
+
+SQL> select * from customer order by lastname;
+
+CUSTI FIRSTNAME  LASTNAME        CITY                                           
+----- ---------- --------------- ----------                                     
+x10   Susan      Blogg           SFO                                            
+c7    James      Bond            LA                                             
+a1    Vincent    Chen            SJ                                             
+z5    Kanye      East            NY                                             
+c2    Mary       Jones           SFO                                            
+a12   Greg       King            SJ                                             
+c1    John       Smith           SJ                                             
+
+7 rows selected.
+
+SQL> select * from schedule order by serviceid, custid DESC;
+
+SERVICEID  CUSTI DA                                                             
+---------- ----- --                                                             
+dby3       x10   f                                                              
+dg5        c1    t                                                              
+dg5        c1    r                                                              
+dsg1       c1    m                                                              
+dsg1       a12   w                                                              
+
+SQL> select serviceid from deliveryservice minus select serviceid from schedule;
+
+SERVICEID                                                                       
+----------                                                                      
+dsb1                                                                            
+dsg2                                                                            
+dsm2                                                                            
+dx9                                                                             
+dy6                                                                             
+
+SQL> select firstname from customer, schedule where day = 'm' and schedule.custid = customer.custid;
+
+FIRSTNAME                                                                       
+----------                                                                      
+John                                                                            
+
+SQL> select distinct lastname from schedule, customer where schedule.custid = customer.custid;
+
+LASTNAME                                                                        
+---------------                                                                 
+King                                                                            
+Blogg                                                                           
+Smith                                                                           
+
+SQL> select MAX(servicefee) highest_Servicefee from deliveryservice;
+
+HIGHEST_SERVICEFEE                                                              
+------------------                                                              
+                30                                                              
+
+SQL> SQL> select day, count(*) numberOfShipments from schedule group by day;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL> select day, count(*) numberOfShipments from schedule group by day;
+
+DA NUMBEROFSHIPMENTS                                                            
+-- -----------------                                                            
+r                  1                                                            
+t                  1                                                            
+w                  1                                                            
+m                  1                                                            
+f                  1                                                            
+
+SQL> Select A.custid,B.custid,A.city
+  2  from Customer A, Customer B
+  3  where A.city=B.city
+  4  And A.custid <> B.custid;
+
+CUSTI CUSTI CITY                                                                
+----- ----- ----------                                                          
+a12   c1    SJ                                                                  
+a1    c1    SJ                                                                  
+x10   c2    SFO                                                                 
+a12   a1    SJ                                                                  
+c1    a1    SJ                                                                  
+a1    a12   SJ                                                                  
+c1    a12   SJ                                                                  
+c2    x10   SFO                                                                 
+
+8 rows selected.
+
+SQL> select distinct firstname from deliveryservice d, customer c, schedule s where d.location = c.city and c.custid = s.custid;
+
+FIRSTNAME                                                                       
+----------                                                                      
+John                                                                            
+Greg                                                                            
+Susan                                                                           
+
+SQL> select MAX(salary) maxSalary, MIN(salary) minSalary from staff;
+
+ MAXSALARY  MINSALARY                                                           
+---------- ----------                                                           
+    179700          0                                                           
+
+SQL> select * from L_EMP;
+
+     EMPNO EMPNAME    DEPTI                                                     
+---------- ---------- -----                                                     
+         1 smith      d1                                                        
+         2 jones      d2                                                        
+         3 wayne      d1                                                        
+         4 moor       d3                                                        
+         5 king       d1                                                        
+         6 chen       d1                                                        
+         7 winger     d3                                                        
+
+7 rows selected.
+
+SQL> select * from L_DEPT;
+
+DEPTI DEPTNAME                                                                  
+----- ----------                                                                
+d1    Research                                                                  
+d2    Devt                                                                      
+d3    Testing                                                                   
+d4    Advert                                                                    
+
+SQL> select empname from L_EMP,L_DEPT where L_EMP.deptid = L_DEPT.deptid and deptname = 'Testing';
+
+EMPNAME                                                                         
+----------                                                                      
+moor                                                                            
+winger                                                                          
+
+SQL> spool off

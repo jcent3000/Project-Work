@@ -1,0 +1,48 @@
+opening scope
+declare b as (272, 0, ARRAY)
+declare x as (272, 0, SCALAR)
+define main as (272, 0, FUNCTION)
+opening scope
+declare p3 as (272, 3, SCALAR)
+declare p2 as (272, 2, SCALAR)
+declare p1 as (272, 1, SCALAR)
+declare b as (272, 0, ARRAY)
+declare c as (272, 0, ARRAY)
+declare x as (272, 0, SCALAR)
+check p3
+check p2
+addr
+check p2
+check p1
+addr
+check p1
+check x
+addr
+check p3
+sub
+index
+mul
+index
+div
+index
+check b
+check x
+gtn
+index
+check c
+rem
+index
+mul
+check x
+geq
+check p1
+deref
+check x
+not
+not
+mul
+add
+ltn
+and
+closing scope
+closing scope
