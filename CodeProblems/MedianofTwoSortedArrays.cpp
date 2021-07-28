@@ -1,3 +1,10 @@
+/*
+Jackson Centeno
+7/27/21
+Problem: Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+Proposed Solution: Recursively remove the max and min from total set, until median is left. 
+*/
+
 #include <vector>
 class Solution {
 public:
